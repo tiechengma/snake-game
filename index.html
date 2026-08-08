@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>🐍 贪吃蛇</title>
+<title>🐍 Snake Game</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -166,22 +166,22 @@
 <body>
 
 <div class="game-wrapper">
-  <h1>🐍 贪吃蛇</h1>
+  <h1>🐍 Snake</h1>
   <div class="score-board">
     <div class="score-item">
-      <span class="label">当前分数</span>
+      <span class="label">Score</span>
       <span class="value" id="score">0</span>
     </div>
     <div class="score-item">
-      <span class="label">本局时间</span>
+      <span class="label">Time</span>
       <span class="value" id="timer">00:00</span>
     </div>
     <div class="score-item">
-      <span class="label">累计时间</span>
+      <span class="label">Total Time</span>
       <span class="value" id="totalTime">00:00</span>
     </div>
     <div class="score-item">
-      <span class="label">最高分</span>
+      <span class="label">Best</span>
       <span class="value" id="highScore">0</span>
     </div>
   </div>
@@ -210,9 +210,9 @@
   </div>
 
   <div class="controls">
-    <kbd>↑ ↓ ← →</kbd> / <kbd>WASD</kbd> 移动 &nbsp;
-    <kbd>空格</kbd> 暂停 &nbsp;
-    <kbd>R</kbd> 重来
+    <kbd>↑ ↓ ← →</kbd> / <kbd>WASD</kbd> Move &nbsp;
+    <kbd>Space</kbd> Pause &nbsp;
+    <kbd>R</kbd> Restart
   </div>
 </div>
 
@@ -220,17 +220,17 @@
 <div class="overlay active" id="startOverlay">
   <div class="overlay-dialog">
     <div class="start-snake-art">🐍</div>
-    <h2>贪吃蛇</h2>
-    <div class="subtitle">经典街机游戏，你能拿到多少分？</div>
+    <h2>Snake</h2>
+    <div class="subtitle">A classic arcade game. How many points can you score?</div>
     <div class="difficulty-row">
-      <span class="diff-label">难度：</span>
-      <button class="diff-btn" data-diff="easy">🐢 简单</button>
-      <button class="diff-btn active" data-diff="medium">🐍 中等</button>
-      <button class="diff-btn" data-diff="hard">🔥 困难</button>
+      <span class="diff-label">Difficulty:</span>
+      <button class="diff-btn" data-diff="easy">🐢 Easy</button>
+      <button class="diff-btn active" data-diff="medium">🐍 Medium</button>
+      <button class="diff-btn" data-diff="hard">🔥 Hard</button>
     </div>
     <div class="overlay-buttons">
-      <button class="btn-primary" id="btnStart">▶ 开始游戏</button>
-      <button class="btn-secondary" id="btnStartQuit">🚪 退出游戏</button>
+      <button class="btn-primary" id="btnStart">▶ Start Game</button>
+      <button class="btn-secondary" id="btnStartQuit">🚪 Quit</button>
     </div>
   </div>
 </div>
@@ -238,29 +238,29 @@
 <!-- ====== 游戏结束画面 ====== -->
 <div class="overlay" id="gameOverOverlay">
   <div class="overlay-dialog">
-    <h2 id="overlayTitle">💀 游戏结束</h2>
+    <h2 id="overlayTitle">💀 Game Over</h2>
     <div class="final-scores">
-      <p><span>📊 本局得分</span> <span class="val" id="overlayScore">0</span></p>
-      <p><span>⏱ 本局时间</span> <span class="val" id="overlayTime">00:00</span></p>
-      <p><span>⌛ 累计时间</span> <span class="val" id="overlayTotalTime">00:00</span></p>
-      <p><span>🏆 最高纪录</span> <span class="val record" id="overlayHigh">0</span></p>
+      <p><span>📊 Score</span> <span class="val" id="overlayScore">0</span></p>
+      <p><span>⏱ This Round</span> <span class="val" id="overlayTime">00:00</span></p>
+      <p><span>⌛ Total Time</span> <span class="val" id="overlayTotalTime">00:00</span></p>
+      <p><span>🏆 Best Record</span> <span class="val record" id="overlayHigh">0</span></p>
     </div>
     <div class="difficulty-row">
-      <span class="diff-label">难度：</span>
-      <button class="diff-btn" data-diff="easy">🐢 简单</button>
-      <button class="diff-btn active" data-diff="medium">🐍 中等</button>
-      <button class="diff-btn" data-diff="hard">🔥 困难</button>
+      <span class="diff-label">Difficulty:</span>
+      <button class="diff-btn" data-diff="easy">🐢 Easy</button>
+      <button class="diff-btn active" data-diff="medium">🐍 Medium</button>
+      <button class="diff-btn" data-diff="hard">🔥 Hard</button>
     </div>
     <div class="overlay-buttons">
-      <button class="btn-primary" id="btnRestart">🔄 重新开始</button>
-      <button class="btn-secondary" id="btnQuit">🚪 退出游戏</button>
+      <button class="btn-primary" id="btnRestart">🔄 Restart</button>
+      <button class="btn-secondary" id="btnQuit">🚪 Quit</button>
     </div>
   </div>
 </div>
 
 <script>
 /* ================================================================
-   贪吃蛇 — 全平台适配版
+   Snake — Cross-platform Edition
    ================================================================ */
 
 const canvas      = document.getElementById('canvas');
@@ -435,8 +435,8 @@ function drawSnake(){
 
 function drawPauseOverlay(){
   ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle='#fff';ctx.font='bold 28px "Microsoft YaHei",sans-serif';
-  ctx.textAlign='center';ctx.fillText('⏸ 已暂停',canvas.width/2,canvas.height/2);ctx.textAlign='start';
+  ctx.fillStyle='#fff';ctx.font='bold 28px "Segoe UI",sans-serif';
+  ctx.textAlign='center';ctx.fillText('⏸ Paused',canvas.width/2,canvas.height/2);ctx.textAlign='start';
 }
 
 function draw(){
@@ -463,7 +463,7 @@ function setDifficulty(d){
 
 // ---- 覆盖层 ----
 function showGameOverOverlay(isWin,isNewRecord){
-  overlayTitle.textContent=isWin?'🎉 恭喜通关！':'💀 游戏结束';
+  overlayTitle.textContent=isWin?'🎉 You Win!':'💀 Game Over';
   overlayScore.textContent=score;
   overlayTime.textContent=formatTime(elapsedSeconds);
   overlayTotalTime.textContent=formatTime(cumulativeSec);
@@ -525,7 +525,7 @@ function togglePause(){
 
 function quitGame(){
   window.close();
-  setTimeout(()=>{document.body.innerHTML='<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#1a1a2e;color:#aaa;font-family:\'Microsoft YaHei\',sans-serif;font-size:1.4rem;">👋 感谢游玩！关闭此标签页即可。</div>';},100);
+  setTimeout(()=>{document.body.innerHTML='<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#1a1a2e;color:#aaa;font-family:\'Microsoft YaHei\',sans-serif;font-size:1.4rem;">👋 Thanks for playing! You can close this tab.</div>';},100);
 }
 
 // ========== 输入处理 ==========
