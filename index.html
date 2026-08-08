@@ -449,7 +449,7 @@ canvas.width  = GRID_SIZE * CELL_SIZE;   // 500
 canvas.height = GRID_SIZE * CELL_SIZE;
 
 // ---- 游戏状态 ----
-let snake=[], food=null, direction, nextDirection;
+let snake=[], food=null, direction={x:1,y:0}, nextDirection={x:1,y:0};
 let score=0, highScore=parseInt(localStorage.getItem('snakeHighScore'))||0;
 let gameLoop=null, timerInterval=null;
 let gameRunning=false, gamePaused=false, gameOver=false;
