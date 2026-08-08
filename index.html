@@ -499,13 +499,6 @@ function spawnFood(){
   return free.length?free[Math.floor(Math.random()*free.length)]:null;
 }
 
-function roundRect(x,y,w,h,r){
-  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
-  ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h-r);
-  ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h);
-  ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y+r,r); ctx.closePath();
-}
-
 function drawApple(cx,cy,size){
   const pad=3,r=size/2-pad,x=cx+size/2,y=cy+size/2;
   ctx.shadowColor='#e94560';ctx.shadowBlur=14;
@@ -523,12 +516,12 @@ function drawApple(cx,cy,size){
 
 function drawSnake(){
   snake.forEach((seg,i)=>{
-    const sx=seg.x*CELL_SIZE,sy=seg.y*CELL_SIZE,pad=2;
+    const sx=seg.x*CELL_SIZE,sy=seg.y*CELL_SIZE,pad=1;
     if(i===0){
+      // 蛇头
       ctx.fillStyle='#4ecca3';ctx.shadowColor='#4ecca3';ctx.shadowBlur=10;
-      roundRect(sx+pad,sy+pad,CELL_SIZE-pad*2,CELL_SIZE-pad*2,7);ctx.fill();ctx.shadowBlur=0;
-      ctx.fillStyle='rgba(0,0,0,.1)';
-      roundRect(sx+pad+2,sy+pad,CELL_SIZE-pad*2-4,CELL_SIZE-pad*2,5);ctx.fill();
+      ctx.fillRect(sx+pad,sy+pad,CELL_SIZE-pad*2,CELL_SIZE-pad*2);ctx.shadowBlur=0;
+      // 眼睛
       const eR=3.5,mx=sx+CELL_SIZE/2,my=sy+CELL_SIZE/2;let e1x,e1y,e2x,e2y;
       if(direction.x===1)      {e1x=mx+5;e1y=my-5;e2x=mx+5;e2y=my+5;}
       else if(direction.x===-1){e1x=mx-5;e1y=my-5;e2x=mx-5;e2y=my+5;}
@@ -541,9 +534,10 @@ function drawSnake(){
       ctx.beginPath();ctx.arc(e1x,e1y,1.8,0,Math.PI*2);ctx.fill();
       ctx.beginPath();ctx.arc(e2x,e2y,1.8,0,Math.PI*2);ctx.fill();
     }else{
+      // 蛇身
       const a=1-(i/snake.length)*.55;
       ctx.fillStyle=`rgba(78,204,163,${Math.max(.25,a)})`;
-      roundRect(sx+pad,sy+pad,CELL_SIZE-pad*2,CELL_SIZE-pad*2,5);ctx.fill();
+      ctx.fillRect(sx+pad,sy+pad,CELL_SIZE-pad*2,CELL_SIZE-pad*2);
     }
   });
 }
