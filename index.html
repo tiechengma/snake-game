@@ -143,6 +143,17 @@
   .btn-primary { background: #4ecca3; color: #1a1a2e; }
   .btn-secondary { background: transparent; color: #e94560; border: 2px solid #e94560 !important; }
 
+  /* 语言切换按钮 */
+  .lang-toggle {
+    position: absolute; top: 10px; right: 14px;
+    padding: 5px 12px; font-size: 0.75rem; font-weight: bold;
+    border: 1px solid #4ecca3; border-radius: 16px;
+    background: transparent; color: #4ecca3; cursor: pointer;
+    font-family: inherit; transition: all 0.18s;
+  }
+  .lang-toggle:hover { background: #4ecca3; color: #1a1a2e; }
+  .lang-toggle:active { transform: scale(0.93); }
+
   .start-snake-art {
     font-size: 3.2rem; margin-bottom: 0;
     animation: wiggle 1.2s ease-in-out infinite;
@@ -166,22 +177,22 @@
 <body>
 
 <div class="game-wrapper">
-  <h1>🐍 Snake</h1>
+  <h1 id="gameTitle">🐍 Snake</h1>
   <div class="score-board">
     <div class="score-item">
-      <span class="label">Score</span>
+      <span class="label" data-i18n="score">Score</span>
       <span class="value" id="score">0</span>
     </div>
     <div class="score-item">
-      <span class="label">Time</span>
+      <span class="label" data-i18n="time">Time</span>
       <span class="value" id="timer">00:00</span>
     </div>
     <div class="score-item">
-      <span class="label">Total Time</span>
+      <span class="label" data-i18n="totalTime">Total Time</span>
       <span class="value" id="totalTime">00:00</span>
     </div>
     <div class="score-item">
-      <span class="label">Best</span>
+      <span class="label" data-i18n="best">Best</span>
       <span class="value" id="highScore">0</span>
     </div>
   </div>
@@ -209,7 +220,7 @@
     </div>
   </div>
 
-  <div class="controls">
+  <div class="controls" data-i18n="controls">
     <kbd>↑ ↓ ← →</kbd> / <kbd>WASD</kbd> Move &nbsp;
     <kbd>Space</kbd> Pause &nbsp;
     <kbd>R</kbd> Restart
@@ -218,51 +229,155 @@
 
 <!-- ====== 开始画面 ====== -->
 <div class="overlay active" id="startOverlay">
-  <div class="overlay-dialog">
+  <div class="overlay-dialog" style="position:relative;">
+    <button class="lang-toggle" id="langToggleStart">🌐 中文</button>
     <div class="start-snake-art">🐍</div>
-    <h2>Snake</h2>
-    <div class="subtitle">A classic arcade game. How many points can you score?</div>
+    <h2 data-i18n="gameTitle">Snake</h2>
+    <div class="subtitle" data-i18n="subtitle">A classic arcade game. How many points can you score?</div>
     <div class="difficulty-row">
-      <span class="diff-label">Difficulty:</span>
-      <button class="diff-btn" data-diff="easy">🐢 Easy</button>
-      <button class="diff-btn active" data-diff="medium">🐍 Medium</button>
-      <button class="diff-btn" data-diff="hard">🔥 Hard</button>
+      <span class="diff-label" data-i18n="difficulty">Difficulty:</span>
+      <button class="diff-btn" data-diff="easy">🐢 <span data-i18n="easy">Easy</span></button>
+      <button class="diff-btn active" data-diff="medium">🐍 <span data-i18n="medium">Medium</span></button>
+      <button class="diff-btn" data-diff="hard">🔥 <span data-i18n="hard">Hard</span></button>
     </div>
     <div class="overlay-buttons">
-      <button class="btn-primary" id="btnStart">▶ Start Game</button>
-      <button class="btn-secondary" id="btnStartQuit">🚪 Quit</button>
+      <button class="btn-primary" id="btnStart">▶ <span data-i18n="startGame">Start Game</span></button>
+      <button class="btn-secondary" id="btnStartQuit">🚪 <span data-i18n="quit">Quit</span></button>
     </div>
   </div>
 </div>
 
 <!-- ====== 游戏结束画面 ====== -->
 <div class="overlay" id="gameOverOverlay">
-  <div class="overlay-dialog">
+  <div class="overlay-dialog" style="position:relative;">
+    <button class="lang-toggle" id="langToggleEnd">🌐 中文</button>
     <h2 id="overlayTitle">💀 Game Over</h2>
     <div class="final-scores">
-      <p><span>📊 Score</span> <span class="val" id="overlayScore">0</span></p>
-      <p><span>⏱ This Round</span> <span class="val" id="overlayTime">00:00</span></p>
-      <p><span>⌛ Total Time</span> <span class="val" id="overlayTotalTime">00:00</span></p>
-      <p><span>🏆 Best Record</span> <span class="val record" id="overlayHigh">0</span></p>
+      <p><span data-i18n="scoreLabel">📊 Score</span> <span class="val" id="overlayScore">0</span></p>
+      <p><span data-i18n="thisRound">⏱ This Round</span> <span class="val" id="overlayTime">00:00</span></p>
+      <p><span data-i18n="totalTimeLabel">⌛ Total Time</span> <span class="val" id="overlayTotalTime">00:00</span></p>
+      <p><span data-i18n="bestRecord">🏆 Best Record</span> <span class="val record" id="overlayHigh">0</span></p>
     </div>
     <div class="difficulty-row">
-      <span class="diff-label">Difficulty:</span>
-      <button class="diff-btn" data-diff="easy">🐢 Easy</button>
-      <button class="diff-btn active" data-diff="medium">🐍 Medium</button>
-      <button class="diff-btn" data-diff="hard">🔥 Hard</button>
+      <span class="diff-label" data-i18n="difficulty">Difficulty:</span>
+      <button class="diff-btn" data-diff="easy">🐢 <span data-i18n="easy">Easy</span></button>
+      <button class="diff-btn active" data-diff="medium">🐍 <span data-i18n="medium">Medium</span></button>
+      <button class="diff-btn" data-diff="hard">🔥 <span data-i18n="hard">Hard</span></button>
     </div>
     <div class="overlay-buttons">
-      <button class="btn-primary" id="btnRestart">🔄 Restart</button>
-      <button class="btn-secondary" id="btnQuit">🚪 Quit</button>
+      <button class="btn-primary" id="btnRestart">🔄 <span data-i18n="restart">Restart</span></button>
+      <button class="btn-secondary" id="btnQuit">🚪 <span data-i18n="quit">Quit</span></button>
     </div>
   </div>
 </div>
 
 <script>
 /* ================================================================
-   Snake — Cross-platform Edition
+   Snake — Cross-platform Edition  |  i18n: EN / 中文
    ================================================================ */
 
+// ---- 国际化 ----
+const I18N = {
+  en: {
+    gameTitle: 'Snake',
+    score: 'Score',
+    time: 'Time',
+    totalTime: 'Total Time',
+    best: 'Best',
+    difficulty: 'Difficulty:',
+    easy: 'Easy',
+    medium: 'Medium',
+    hard: 'Hard',
+    startGame: 'Start Game',
+    quit: 'Quit',
+    restart: 'Restart',
+    subtitle: 'A classic arcade game. How many points can you score?',
+    paused: '⏸ Paused',
+    gameOver: '💀 Game Over',
+    youWin: '🎉 You Win!',
+    thisRound: '⏱ This Round',
+    totalTimeLabel: '⌛ Total Time',
+    bestRecord: '🏆 Best Record',
+    scoreLabel: '📊 Score',
+    newRecord: '🆕',
+    thanks: '👋 Thanks for playing! You can close this tab.',
+    langLabel: '🌐 中文',
+    controls: '<kbd>↑ ↓ ← →</kbd> / <kbd>WASD</kbd> Move &nbsp; <kbd>Space</kbd> Pause &nbsp; <kbd>R</kbd> Restart',
+  },
+  zh: {
+    gameTitle: '贪吃蛇',
+    score: '分数',
+    time: '时间',
+    totalTime: '累计时间',
+    best: '最高分',
+    difficulty: '难度：',
+    easy: '简单',
+    medium: '中等',
+    hard: '困难',
+    startGame: '开始游戏',
+    quit: '退出',
+    restart: '重新开始',
+    subtitle: '经典街机游戏，你能拿到多少分？',
+    paused: '⏸ 已暂停',
+    gameOver: '💀 游戏结束',
+    youWin: '🎉 恭喜通关！',
+    thisRound: '⏱ 本局时间',
+    totalTimeLabel: '⌛ 累计时间',
+    bestRecord: '🏆 最高纪录',
+    scoreLabel: '📊 当前分数',
+    newRecord: '🆕 新纪录',
+    thanks: '👋 感谢游玩！可以关闭此页面。',
+    langLabel: '🌐 English',
+    controls: '<kbd>↑ ↓ ← →</kbd> / <kbd>WASD</kbd> 移动 &nbsp; <kbd>Space</kbd> 暂停 &nbsp; <kbd>R</kbd> 重新开始',
+  }
+};
+
+let currentLang = localStorage.getItem('snakeLang') || 'en';
+function t(key) { return I18N[currentLang]?.[key] ?? I18N['en'][key] ?? key; }
+
+function applyLanguage() {
+  // document lang & title
+  document.documentElement.lang = currentLang;
+  document.title = currentLang === 'zh' ? '🐍 贪吃蛇' : '🐍 Snake Game';
+
+  // 游戏标题
+  document.getElementById('gameTitle').textContent = '🐍 ' + t('gameTitle');
+
+  // 计分板标签
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (key === 'controls') {
+      el.innerHTML = t('controls');
+    } else if (I18N[currentLang]?.[key]) {
+      el.textContent = I18N[currentLang][key];
+    }
+  });
+
+  // 计分板按钮 span（按钮内有 emoji + span）
+  document.querySelectorAll('.overlay-buttons button span[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[currentLang]?.[key]) el.textContent = I18N[currentLang][key];
+  });
+
+  // 难度按钮内的 span
+  document.querySelectorAll('.diff-btn span[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[currentLang]?.[key]) el.textContent = I18N[currentLang][key];
+  });
+
+  // 语言切换按钮
+  document.querySelectorAll('.lang-toggle').forEach(b => { b.textContent = t('langLabel'); });
+
+  // 覆盖层标题（如果当前显示的是游戏结束画面）
+  localStorage.setItem('snakeLang', currentLang);
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'zh' : 'en';
+  applyLanguage();
+}
+
+// ---- DOM ----
 const canvas      = document.getElementById('canvas');
 const ctx         = canvas.getContext('2d');
 const scoreEl     = document.getElementById('score');
@@ -388,7 +503,7 @@ function roundRect(x,y,w,h,r){
   ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
   ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h-r);
   ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h);
-  ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+  ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y+r); ctx.closePath();
 }
 
 function drawApple(cx,cy,size){
@@ -435,8 +550,8 @@ function drawSnake(){
 
 function drawPauseOverlay(){
   ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle='#fff';ctx.font='bold 28px "Segoe UI",sans-serif';
-  ctx.textAlign='center';ctx.fillText('⏸ Paused',canvas.width/2,canvas.height/2);ctx.textAlign='start';
+  ctx.fillStyle='#fff';ctx.font='bold 28px "Segoe UI","Microsoft YaHei",sans-serif';
+  ctx.textAlign='center';ctx.fillText(t('paused'),canvas.width/2,canvas.height/2);ctx.textAlign='start';
 }
 
 function draw(){
@@ -463,11 +578,11 @@ function setDifficulty(d){
 
 // ---- 覆盖层 ----
 function showGameOverOverlay(isWin,isNewRecord){
-  overlayTitle.textContent=isWin?'🎉 You Win!':'💀 Game Over';
+  overlayTitle.textContent = isWin ? t('youWin') : t('gameOver');
   overlayScore.textContent=score;
   overlayTime.textContent=formatTime(elapsedSeconds);
   overlayTotalTime.textContent=formatTime(cumulativeSec);
-  overlayHigh.textContent=isNewRecord?highScore+' 🆕':highScore;
+  overlayHigh.textContent=isNewRecord ? highScore+' '+t('newRecord') : highScore;
   gameOverOverlay.classList.add('active');
 }
 
@@ -525,7 +640,7 @@ function togglePause(){
 
 function quitGame(){
   window.close();
-  setTimeout(()=>{document.body.innerHTML='<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#1a1a2e;color:#aaa;font-family:\'Microsoft YaHei\',sans-serif;font-size:1.4rem;">👋 Thanks for playing! You can close this tab.</div>';},100);
+  setTimeout(()=>{document.body.innerHTML='<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#1a1a2e;color:#aaa;font-family:\'Segoe UI\',\'Microsoft YaHei\',sans-serif;font-size:1.4rem;">'+t('thanks')+'</div>';},100);
 }
 
 // ========== 输入处理 ==========
@@ -559,7 +674,6 @@ document.addEventListener('keydown',e=>{
 // ---- 虚拟方向键 ----
 document.querySelectorAll('.dpad-btn').forEach(btn=>{
   btn.addEventListener('pointerdown',e=>{e.preventDefault();setDirection(btn.dataset.dir);});
-  // 阻止后续的 click/触摸事件
   btn.addEventListener('touchstart',e=>{e.preventDefault();setDirection(btn.dataset.dir);});
 });
 
@@ -576,7 +690,7 @@ canvas.addEventListener('touchstart',e=>{
 canvas.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-touchStartX;
   const dy=e.changedTouches[0].clientY-touchStartY;
-  if(Math.abs(dx)<15&&Math.abs(dy)<15)return;  // 太小忽略
+  if(Math.abs(dx)<15&&Math.abs(dy)<15)return;
   if(Math.abs(dx)>Math.abs(dy)){
     setDirection(dx>0?'right':'left');
   }else{
@@ -593,7 +707,12 @@ document.getElementById('btnStartQuit').addEventListener('click',quitGame);
 document.getElementById('btnRestart').addEventListener('click',startGame);
 document.getElementById('btnQuit').addEventListener('click',quitGame);
 
+// ---- 语言切换 ----
+document.getElementById('langToggleStart').addEventListener('click',toggleLanguage);
+document.getElementById('langToggleEnd').addEventListener('click',toggleLanguage);
+
 // ---- 初始化 ----
+applyLanguage();
 syncDifficultyUI();
 (function drawIdle(){initSnake();food=spawnFood();draw();})();
 </script>
